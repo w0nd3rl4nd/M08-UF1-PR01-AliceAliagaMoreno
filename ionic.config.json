@@ -1,0 +1,7 @@
+{
+  "name": "M08-UF1-PR01-AliceAliagaMoreno",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
