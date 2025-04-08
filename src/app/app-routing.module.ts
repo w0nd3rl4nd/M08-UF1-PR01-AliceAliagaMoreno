@@ -16,7 +16,15 @@ const routes: Routes = [
     path: '', 
     redirectTo: 'login', 
     pathMatch: 'full' 
+  },  {
+    path: 'register',
+    loadChildren: () => import('./pages/register/register.module').then( m => m.RegisterPageModule)
+  },
+  {
+    path: 'players-list',
+    loadChildren: () => import('./pages/players-list/players-list.module').then( m => m.PlayersListPageModule)
   }
+
 ];
 
 @NgModule({
