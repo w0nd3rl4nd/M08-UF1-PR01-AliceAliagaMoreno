@@ -24,7 +24,7 @@ export class PlayerDetailPage implements OnInit {
   ngOnInit() {
     this.playerId = +this.route.snapshot.paramMap.get('id')!;
     this.playerService.getPlayerById(this.playerId).subscribe(res => {
-      this.player = res;
+      this.player = res.data;
     });
 
     this.platform.backButton.subscribeWithPriority(10, () => {
