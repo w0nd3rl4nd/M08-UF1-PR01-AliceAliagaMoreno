@@ -1,0 +1,26 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Player List</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list *ngIf="players.length > 0">
+    <ion-item *ngFor="let player of players" button (click)="goToDetail(player)">
+      <ion-label>
+        <h2>{{ player.first_name }} {{ player.last_name }}</h2>
+        <p>Altura: {{ player.height_feet || 'N/A' }}' {{ player.height_inches || '' }}"</p>
+        <p>Peso: {{ player.weight_pounds || 'N/A' }} lbs</p>
+        <p>Equipo: {{ player.team.full_name }}</p>
+      </ion-label>
+      <ion-buttons slot="end">
+        <ion-button fill="clear" (click)="takePicture($event, player)">
+          <ion-icon slot="icon-only" name="camera"></ion-icon>
+        </ion-button>
+        <ion-button fill="clear" (click)="sharePlayer($event, player)">
+          <ion-icon slot="icon-only" name="share-social"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-item>
+  </ion-list>
+</ion-content>

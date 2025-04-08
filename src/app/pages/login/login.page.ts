@@ -17,7 +17,7 @@ export class LoginPage {
   async onLogin() {
     try {
       await this.authService.login(this.email, this.password);
-      this.router.navigate(['/home']);
+      this.router.navigate(['/players']);
     } catch (error) {
       console.error('Error de login', error);
     }

@@ -16,13 +16,20 @@ const routes: Routes = [
     path: '', 
     redirectTo: 'login', 
     pathMatch: 'full' 
-  },  {
+  },
+  {
     path: 'register',
     loadChildren: () => import('./pages/register/register.module').then( m => m.RegisterPageModule)
   },
   {
-    path: 'players-list',
-    loadChildren: () => import('./pages/players-list/players-list.module').then( m => m.PlayersListPageModule)
+    path: 'players',
+    loadChildren: () => import('./pages/players-list/players-list.module').then(m => m.PlayersListPageModule),
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'player-detail/:id',
+    loadChildren: () => import('./pages/player-detail/player-detail.module').then(m => m.PlayerDetailPageModule),
+    canActivate: [AuthGuard]
   }
 
 ];

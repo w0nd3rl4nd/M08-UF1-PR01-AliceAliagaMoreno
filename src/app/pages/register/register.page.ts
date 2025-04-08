@@ -20,7 +20,7 @@ export class RegisterPage implements OnInit {
   async register() {
     try {
       await this.authService.register(this.email, this.password);
-      this.router.navigate(['/home']);
+      this.router.navigate(['/players']);
     } catch (error) {
       console.error('Registration error: ', error);
     }

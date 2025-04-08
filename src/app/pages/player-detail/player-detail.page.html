@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Player Detail</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="player">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>{{ player.first_name }} {{ player.last_name }}</ion-card-title>
+      <ion-card-subtitle>{{ player.team.full_name }}</ion-card-subtitle>
+    </ion-card-header>
+
+    <ion-card-content>
+      <p>Height: {{ player.height_feet || 'N/A' }}' {{ player.height_inches || '' }}"</p>
+      <p>Weight: {{ player.weight_pounds || 'N/A' }} lbs</p>
+      <p>Number: {{ player.id }}</p>
+      <p>Position: {{ player.position || 'Unknown' }}</p>
+      <p>Country: USA 🇺🇸</p> <!-- Fake it for now -->
+
+      <ion-button expand="block" (click)="toggleFavorite()">
+        <ion-icon name="heart" slot="start" [color]="isFavorite ? 'danger' : 'medium'"></ion-icon>
+        {{ isFavorite ? 'Remove from Favorites' : 'Mark as Favorite' }}
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
