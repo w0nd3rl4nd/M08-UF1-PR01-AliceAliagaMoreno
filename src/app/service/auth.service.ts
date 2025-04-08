@@ -23,4 +23,8 @@ export class AuthService {
   getUser() {
     return this.afAuth.authState;
   }
+
+  async getCurrentUserId() {
+    return this.afAuth.currentUser.then(user => user?.uid);
+  }
 }

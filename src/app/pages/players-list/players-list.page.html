@@ -9,9 +9,12 @@
     <ion-item *ngFor="let player of players" button (click)="goToDetail(player)">
       <ion-label>
         <h2>{{ player.first_name }} {{ player.last_name }}</h2>
-        <p>Altura: {{ player.height_feet || 'N/A' }}' {{ player.height_inches || '' }}"</p>
-        <p>Peso: {{ player.weight_pounds || 'N/A' }} lbs</p>
-        <p>Equipo: {{ player.team.full_name }}</p>
+        <p>Position: {{ player.position || 'Unknown' }}</p>
+        <p>Height: {{ player.height || 'N/A' }}</p>
+        <p>Weight: {{ player.weight || 'N/A' }} lbs</p>
+        <p>Jersey #: {{ player.jersey_number || 'N/A' }}</p>
+        <p>College: {{ player.college || 'N/A' }}</p>
+        <p>Team: {{ player.team?.full_name }}</p>
       </ion-label>
       <ion-buttons slot="end">
         <ion-button fill="clear" (click)="takePicture($event, player)">

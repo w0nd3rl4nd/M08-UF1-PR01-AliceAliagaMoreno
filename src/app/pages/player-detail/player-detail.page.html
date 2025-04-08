@@ -1,6 +1,5 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Player Detail</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -8,15 +7,19 @@
   <ion-card>
     <ion-card-header>
       <ion-card-title>{{ player.first_name }} {{ player.last_name }}</ion-card-title>
-      <ion-card-subtitle>{{ player.team.full_name }}</ion-card-subtitle>
+      <ion-card-subtitle>{{ player.team?.full_name }}</ion-card-subtitle>
     </ion-card-header>
 
     <ion-card-content>
-      <p>Height: {{ player.height_feet || 'N/A' }}' {{ player.height_inches || '' }}"</p>
-      <p>Weight: {{ player.weight_pounds || 'N/A' }} lbs</p>
-      <p>Number: {{ player.id }}</p>
-      <p>Position: {{ player.position || 'Unknown' }}</p>
-      <p>Country: USA 🇺🇸</p> <!-- Fake it for now -->
+      <p><strong>Position:</strong> {{ player.position || 'Unknown' }}</p>
+      <p><strong>Height:</strong> {{ player.height || 'N/A' }}</p>
+      <p><strong>Weight:</strong> {{ player.weight || 'N/A' }} lbs</p>
+      <p><strong>Jersey Number:</strong> {{ player.jersey_number || 'N/A' }}</p>
+      <p><strong>College:</strong> {{ player.college || 'N/A' }}</p>
+      <p><strong>Country:</strong> {{ player.country || 'N/A' }}</p>
+      <p><strong>Draft Year:</strong> {{ player.draft_year || 'N/A' }}</p>
+      <p><strong>Draft Round:</strong> {{ player.draft_round || 'N/A' }}</p>
+      <p><strong>Draft Pick:</strong> {{ player.draft_number || 'N/A' }}</p>
 
       <ion-button expand="block" (click)="toggleFavorite()">
         <ion-icon name="heart" slot="start" [color]="isFavorite ? 'danger' : 'medium'"></ion-icon>
