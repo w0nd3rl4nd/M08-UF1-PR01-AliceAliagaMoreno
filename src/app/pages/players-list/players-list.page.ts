@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Platform } from '@ionic/angular';
 import { PlayerService } from 'src/app/service/player.service';
 import { Share } from '@capacitor/share';
+import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 
 @Component({
   selector: 'app-players-list',
@@ -31,9 +32,32 @@ export class PlayersListPage implements OnInit {
     this.router.navigate(['/player-detail', player.id]);
   }
 
-  takePicture(event: Event, player: any) {
+  async takePicture(event: Event, player: any) {
     event.stopPropagation();
-    console.log('Taking picture for:', player);
+    try {
+      const image = await Camera.getPhoto({
+        quality: 90,
+        allowEditing: false,
+        source: CameraSource.Prompt,
+        resultType: CameraResultType.Uri,
+        webUseInput: true
+      });
+  
+      console.log('Foto URI:', image.webPath);
+      
+      if(image.webPath) {
+        const imageElement = new Image();
+        imageElement.src = image.webPath;
+        imageElement.style.maxWidth = '100%';
+        window.document.body.appendChild(imageElement);
+      }
+  
+    } catch (error) {
+      console.error('Error completo:', error);
+      if (this.platform.is('android')) {
+        alert('Asegúrate de haber dado permisos de cámara en ajustes del teléfono');
+      }
+    }
   }
 
   async sharePlayer(event: Event, player: any) {
