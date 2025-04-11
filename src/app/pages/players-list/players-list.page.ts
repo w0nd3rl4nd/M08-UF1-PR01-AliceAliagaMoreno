@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Platform } from '@ionic/angular';
 import { PlayerService } from 'src/app/service/player.service';
+import { Share } from '@capacitor/share';
 
 @Component({
   selector: 'app-players-list',
@@ -35,8 +36,27 @@ export class PlayersListPage implements OnInit {
     console.log('Taking picture for:', player);
   }
 
-  sharePlayer(event: Event, player: any) {
+  async sharePlayer(event: Event, player: any) {
     event.stopPropagation();
-    console.log('Sharing player:', player);
+    try {
+      await Share.share({
+        title: 'Player Information',
+        text:
+          `Check out ${player.first_name || 'Unknown '} ${ player.last_name || 'Player' }!\n\n` +
+          `Position: ${player.position || 'Unknown'}\n` +
+          `Height: ${player.height || 'N/A'}\n` +
+          `Weight: ${player.weight || 'N/A'} lbs\n` +
+          `Jersey Number: ${player.jersey_number || 'N/A'}\n` +
+          `College: ${player.college || 'N/A'}\n` +
+          `Country: ${player.country || 'N/A'}\n` +
+          `Draft Year: ${player.draft_year || 'N/A'}\n` +
+          `Draft Round: ${player.draft_round || 'N/A'}\n` +
+          `Draft Pick: ${player.draft_number || 'N/A'}`,
+        dialogTitle: 'Share Player Details'
+      });
+    } catch (error) {
+      console.error('Error sharing player:', error);
+    }
   }
+  
 }
