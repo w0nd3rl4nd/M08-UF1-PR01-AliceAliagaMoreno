@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PlayerService } from 'src/app/service/player.service';
+import { FavoritesService } from 'src/app/service/favourites.service';
 import { Platform } from '@ionic/angular';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-player-detail',
@@ -17,6 +19,7 @@ export class PlayerDetailPage implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private playerService: PlayerService,
+    private favoritesService: FavoritesService,
     private router: Router,
     private platform: Platform
   ) {}
@@ -27,6 +30,10 @@ export class PlayerDetailPage implements OnInit {
       this.player = res.data;
     });
 
+    this.favoritesService.isFavorite(this.playerId).subscribe(isFav => {
+      this.isFavorite = isFav;
+    });
+
     this.platform.backButton.subscribeWithPriority(10, () => {
       if (this.router.url === `/player-detail/${this.playerId}`) {
         this.router.navigate(['/players']);
@@ -35,6 +42,20 @@ export class PlayerDetailPage implements OnInit {
   }
 
   toggleFavorite() {
-    this.isFavorite = !this.isFavorite;
+    if (this.isFavorite) {
+      this.favoritesService.removeFavorite(this.playerId)
+        .pipe(take(1))
+        .subscribe({
+          next: () => this.isFavorite = false,
+          error: console.error
+        });
+    } else {
+      this.favoritesService.addFavorite(this.playerId)
+        .pipe(take(1))
+        .subscribe({
+          next: () => this.isFavorite = true,
+          error: console.error
+        });
+    }
   }
 }
